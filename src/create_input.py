@@ -221,57 +221,57 @@ def create_input_for_acr(cfg, df, output_path):
     print(f'{n_clips} clips and {n_sessions} sessions')
 
     # create math
-    math_source = df['math'].dropna()
-    math_output = np.tile(math_source.to_numpy(), (n_sessions // math_source.count()) + 1)[:n_sessions]
+    # math_source = df['math'].dropna()
+    # math_output = np.tile(math_source.to_numpy(), (n_sessions // math_source.count()) + 1)[:n_sessions]
 
     # CMPs: 4 pairs are needed for 1 session
     nPairs = 4 * n_sessions
-    pair_a = df['pair_a'].dropna()
-    pair_b = df['pair_b'].dropna()
-    pair_a_extended = np.tile(pair_a.to_numpy(), (nPairs // pair_a.count()) + 1)[:nPairs]
-    pair_b_extended = np.tile(pair_b.to_numpy(), (nPairs // pair_b.count()) + 1)[:nPairs]
+    # pair_a = df['pair_a'].dropna()
+    # pair_b = df['pair_b'].dropna()
+    # pair_a_extended = np.tile(pair_a.to_numpy(), (nPairs // pair_a.count()) + 1)[:nPairs]
+    # pair_b_extended = np.tile(pair_b.to_numpy(), (nPairs // pair_b.count()) + 1)[:nPairs]
 
     # randomly select pairs and swap a and b
-    swap_me = np.random.randint(2, size=nPairs)
-    tmp = np.copy(pair_a_extended)
-    pair_a_extended[swap_me == 1] = pair_b_extended[swap_me == 1]
-    pair_b_extended[swap_me == 1] = tmp[swap_me == 1]
+    # swap_me = np.random.randint(2, size=nPairs)
+    # tmp = np.copy(pair_a_extended)
+    # pair_a_extended[swap_me == 1] = pair_b_extended[swap_me == 1]
+    # pair_b_extended[swap_me == 1] = tmp[swap_me == 1]
+    #
+    # full_array = np.transpose(np.array([pair_a_extended, pair_b_extended]))
+    # new_4 = np.reshape(full_array, (n_sessions, 8))
+    # for i in range(n_sessions):
+    #     new_4[i] = np.roll(new_4[i], random.randint(1, 3) * 2)
 
-    full_array = np.transpose(np.array([pair_a_extended, pair_b_extended]))
-    new_4 = np.reshape(full_array, (n_sessions, 8))
-    for i in range(n_sessions):
-        new_4[i] = np.roll(new_4[i], random.randint(1, 3) * 2)
-
-    output_df = output_df.assign(**{'CMP1_A': new_4[:, 0], 'CMP1_B': new_4[:, 1],
-                                    'CMP2_A': new_4[:, 2], 'CMP2_B': new_4[:, 3],
-                                    'CMP3_A': new_4[:, 4], 'CMP3_B': new_4[:, 5],
-                                    'CMP4_A': new_4[:, 6], 'CMP4_B': new_4[:, 7]})
-
-    # add math
-    output_df['math'] = math_output
+    # output_df = output_df.assign(**{'CMP1_A': new_4[:, 0], 'CMP1_B': new_4[:, 1],
+    #                                 'CMP2_A': new_4[:, 2], 'CMP2_B': new_4[:, 3],
+    #                                 'CMP3_A': new_4[:, 4], 'CMP3_B': new_4[:, 5],
+    #                                 'CMP4_A': new_4[:, 6], 'CMP4_B': new_4[:, 7]})
+    #
+    # # add math
+    # output_df['math'] = math_output
 
     # trappings
-    if int(cfg['number_of_trapping_per_session']) > 0:
-        if int(cfg['number_of_trapping_per_session']) > 1:
-            print("more than one TP is not supported for now - continue with 1")
-        # n_trappings = int(cfg['general']['number_of_trapping_per_session']) * n_sessions
-        n_trappings = n_sessions
-        tmp = df[['trapping_clips', 'trapping_ans']].copy()
-        tmp.dropna(inplace=True)
-        tmp = tmp.sample(n=n_trappings, replace=True)
-        trap_source = tmp['trapping_clips'].dropna()
-        trap_ans_source = tmp['trapping_ans'].dropna()
-
-        full_trappings = np.tile(trap_source.to_numpy(), (n_trappings // trap_source.count()) + 1)[:n_trappings]
-        full_trappings_answer = np.tile(trap_ans_source.to_numpy(), (n_trappings // trap_ans_source.count()) + 1)[
-                                :n_trappings]
-
-        full_tp = list(zip(full_trappings, full_trappings_answer))
-        random.shuffle(full_tp)
-
-        full_trappings, full_trappings_answer = zip(*full_tp)
-        output_df['TP'] = full_trappings
-        output_df['TP_ANS'] = full_trappings_answer
+    # if int(cfg['number_of_trapping_per_session']) > 0:
+    #     if int(cfg['number_of_trapping_per_session']) > 1:
+    #         print("more than one TP is not supported for now - continue with 1")
+    #     # n_trappings = int(cfg['general']['number_of_trapping_per_session']) * n_sessions
+    #     n_trappings = n_sessions
+    #     tmp = df[['trapping_clips', 'trapping_ans']].copy()
+    #     tmp.dropna(inplace=True)
+    #     tmp = tmp.sample(n=n_trappings, replace=True)
+    #     trap_source = tmp['trapping_clips'].dropna()
+    #     trap_ans_source = tmp['trapping_ans'].dropna()
+    #
+    #     full_trappings = np.tile(trap_source.to_numpy(), (n_trappings // trap_source.count()) + 1)[:n_trappings]
+    #     full_trappings_answer = np.tile(trap_ans_source.to_numpy(), (n_trappings // trap_ans_source.count()) + 1)[
+    #                             :n_trappings]
+    #
+    #     full_tp = list(zip(full_trappings, full_trappings_answer))
+    #     random.shuffle(full_tp)
+    #
+    #     full_trappings, full_trappings_answer = zip(*full_tp)
+    #     output_df['TP'] = full_trappings
+    #     output_df['TP_ANS'] = full_trappings_answer
 
     # gold_clips
     if int(cfg['number_of_gold_clips_per_session']) > 0:

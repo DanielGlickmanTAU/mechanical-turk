@@ -1,0 +1,5 @@
+fix names/ids in amazon inputs to be the question string itself
+
+in a batch file:
+each row is a hit
+I cna have like 1-3 rows

@@ -561,25 +561,25 @@ def prepare_basic_cfg(df):
         base64_urls.append(base64.b64encode(url.encode('ascii')).decode('ascii'))
 
     # randomly select numbers for hearing test
-    clear_sample_url = "https://audiosamplesp808.blob.core.windows.net/p808-assets/clips/sample_hearing_test/s0.wav"
-    clear_sample_ans = "289"
-
-    only_hearing_test = df[['hearing_test_url', 'hearing_test_ans']].copy()
-    only_hearing_test.dropna(subset=["hearing_test_url"], inplace=True)
-    sample = only_hearing_test.sample(n=4)
-    sample = sample.append({"hearing_test_url": clear_sample_url,
-                            "hearing_test_ans": clear_sample_ans}, ignore_index=True)
-    sample["hearing_test_ans"] = sample["hearing_test_ans"].apply(lambda x: str(int(x)))
-    i = 2
-    for x, row in sample.iterrows():
-        ans = row["hearing_test_ans"]
-        if ans == clear_sample_ans:
-            index = 1
-        else:
-            index = i
-            i += 1
-        config[f"num{index}_url"] = row["hearing_test_url"]
-        config[f"num{index}_ans"] = base64.b64encode(ans.encode('ascii')).decode('ascii')
+    # clear_sample_url = "https://audiosamplesp808.blob.core.windows.net/p808-assets/clips/sample_hearing_test/s0.wav"
+    # clear_sample_ans = "289"
+    #
+    # only_hearing_test = df[['hearing_test_url', 'hearing_test_ans']].copy()
+    # only_hearing_test.dropna(subset=["hearing_test_url"], inplace=True)
+    # sample = only_hearing_test.sample(n=4)
+    # sample = sample.append({"hearing_test_url": clear_sample_url,
+    #                         "hearing_test_ans": clear_sample_ans}, ignore_index=True)
+    # sample["hearing_test_ans"] = sample["hearing_test_ans"].apply(lambda x: str(int(x)))
+    # i = 2
+    # for x, row in sample.iterrows():
+    #     ans = row["hearing_test_ans"]
+    #     if ans == clear_sample_ans:
+    #         index = 1
+    #     else:
+    #         index = i
+    #         i += 1
+    #     config[f"num{index}_url"] = row["hearing_test_url"]
+    #     config[f"num{index}_ans"] = base64.b64encode(ans.encode('ascii')).decode('ascii')
 
     # set environment test
     config["cmp_correct_answers"] = base64_urls
