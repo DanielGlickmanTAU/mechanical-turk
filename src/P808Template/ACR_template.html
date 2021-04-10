@@ -69,7 +69,8 @@
     .scale .c {
         text-align: center;
     }
-/*@formatter:off*/
+
+    /*@formatter:off*/
     section {
         margin-bottom: 15px;
         padding: 10px 10px;
@@ -1020,8 +1021,10 @@
         }
         $('.question_number_training').html(urls.length);
         trainingStimulusPlayed = new Array(urls.length).fill(0);
-        createCookie(config['cookieName'] + "_training", "un_important", config['forceRetrainingInHours'] * 60);
-        createCookie(config['cookieName'] + "_setup", "un_important", config['forceRetrainingInHours'] * 60);
+        createCookie(config['cookieName'] + "_training", "un_important", 1 * 60);
+        createCookie(config['cookieName'] + "_training", "important", 1 * 60);
+        createCookie(config['cookieName'] + "_setup", "un_important", 1 * 60);
+        createCookie(config['cookieName'] + "_setup", "important", 1 * 60);
     }
 
     /*
