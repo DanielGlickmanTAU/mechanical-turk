@@ -187,7 +187,7 @@
             if (readCookie(config['cookieName'] + "_training")) {
                 $('.trainingFieldset').prop("disabled", true);
                 $("#training :input").removeAttr("required");
-                $("#training").collapse();
+                $("#training").hide();
                 // $('#instruction').collapse()
                 cookie_debug_status = cookie_debug_status + "Train Exist*";
             }
