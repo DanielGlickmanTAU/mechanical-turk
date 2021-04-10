@@ -1,4 +1,4 @@
-file = 'test_inputs/gold_clips.csv'
+file = 'question_algo3_least_confidece'
 
 questions = []
 texts = []
@@ -24,5 +24,5 @@ def process_question(q):
 def process_text(t):
     return t.replace("'", "`").replace(',', ';;').replace('\n', '')
 
-
+print('\n\n')
 print('\n'.join([process_question(q) + process_text(t) for q, t in zip(questions, texts)]))
