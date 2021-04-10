@@ -679,12 +679,13 @@
         if (id + 1 != count) {
             id = id + 2;
             $('#trainingTabs li:nth-child(' + id + ') a').tab('show');
-        } else {
-            // last next is called
-            setTimeout(function () {
-                window.location.hash = "navNextPre";
-            }, 50);
         }
+            // else {
+        //     // last next is called
+        //     // setTimeout(function () {
+        //     //     window.location.hash = "navNextPre";
+        //     // }, 50);
+        // }
     }
 
     /*
