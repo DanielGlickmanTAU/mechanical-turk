@@ -1,9 +1,9 @@
-file = 'questions'
+file = 'test_inputs/gold_clips.csv'
 
 questions = []
 texts = []
 
-lines = open(file).readlines()
+lines = open(file,encoding='utf-8').readlines()
 for line in lines:
     if line.startswith('question: '):
         line = line.replace('question: ', '')
