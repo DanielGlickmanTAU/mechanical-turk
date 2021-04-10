@@ -176,7 +176,7 @@
             qual_passed = readCookie(config['qualificationCookieName']);
             console.log(qual_passed);
 
-            if (qual_passed !== null && qual_passed == "true") {
+            if (qual_passed !== null && qual_passed === "true") {
                 $('.qualificationFieldset').prop("disabled", true);
                 $("#qualification").hide();
                 $("#qualification :input").removeAttr("required");
@@ -191,12 +191,12 @@
                 cookie_debug_status = cookie_debug_status + "Train Exist*";
             }
             // given cookie availability disable the setup
-            // if (readCookie(config['cookieName'] + "_setup")) {
-            //     $('.setupFieldset').prop("disabled", true);
-            //     $("#setup").hide();
-            //     $("#setup :input").removeAttr("required");
-            //     cookie_debug_status = cookie_debug_status + "Setup Exist*";
-            // }
+            if (readCookie(config['cookieName'] + "_setup")) {
+                $('.setupFieldset').prop("disabled", true);
+                $("#setup").hide();
+                $("#setup :input").removeAttr("required");
+                cookie_debug_status = cookie_debug_status + "Setup Exist*";
+            }
 
             hit_num = readCookie(config['cookieName'] + "_counter");
             howManyHITsAnswered = 0;
@@ -920,14 +920,7 @@
         }
     }
 
-    /*
-        Called when user answers to one question from setup
-        (i.e. q2. math question). Here the cookie will be added/updated
-    */
-    function userAnsweringToSetupQuestions() {
-        createCookie(config['cookieName'] + "_setup", "un_important", config['showSetupEveryMinutes']);
-        $('input[name="math"]').off('change');
-    }
+
 
 </script>
 
@@ -1020,6 +1013,8 @@
         }
         $('.question_number_training').html(urls.length);
         trainingStimulusPlayed = new Array(urls.length).fill(0);
+        createCookie(config['cookieName'] + "_training", "un_important", config['forceRetrainingInHours'] * 60);
+        createCookie(config['cookieName'] + "_setup", "un_important", config['forceRetrainingInHours'] * 60);
     }
 
     /*
@@ -1073,7 +1068,7 @@
     <div class="panel panel-primary">
         <div class="panel-heading">
             <h3 class="panel-title">
-                <a data-target="#instruction" data-toggle="collapse">Instructions for speech quality assessment</a>
+                <a data-target="#instruction" data-toggle="collapse">Instructions for questions quality assessment</a>
             </h3>
         </div>
         <div class="panel-collapse collapse in" id="instruction">
@@ -1082,40 +1077,8 @@
 
                 <p>Welcome! You are about to participate in our speech quality assessment experiment! This HIT has two +
                     two (just every now and then) sections:</p>
-                <ul>
-                    <li><b>Basic details (just once):</b> Check if you are eligible to perform these HITs</li>
-                    <li><b>Training (every <b class="training_time"> 0 </b> hour):</b> <b
-                            class="question_number_training"> 0 </b> questions, same as "Ratings" but appears just once
-                        a day
-                    </li>
-                    <li><b>Rating:</b> Listen to <b class="question_number"> 0 </b> audio files and give <b>your opinion
-                        about the quality of the speech</b> you hear.
-                    </li>
-                </ul>
                 <p>Note that not all of the speech in these audio files is in English.</p>
                 <p>You should follow the below mentioned rules, otherwise your answers will be invalid.</p>
-
-                <p><b>Payment:</b></p>
-                <p>The result of this experiment is <b>very important for us and other scientist</b> working in this
-                    area. We have methods that analyse the consistency of your answers. We will use these methods to
-                    rank the submitted assignments according to quality.</p>
-                <p>For this experiment, we will pay a base reward of <b>${{cfg.hit_base_payment}}/HIT</b> for every
-                    accepted HIT. We have made available a set of <b class="max_allowed_hits">0 </b> different HITs. You
-                    will receive a bonus of:</p>
-
-                <ul>
-                    <li>${{cfg.quantity_bonus}}/HIT (for a total of <b>${{cfg.sum_quantity}}/HIT</b>) if you submit <b>more
-                        than {{cfg.quantity_hits_more_than}} HITs</b> or
-                    </li>
-                    <li>${{cfg.quality_bonus}}/HIT (for a total of <b>${{cfg.sum_quality }}/HIT</b>) if you submit <b>more
-                        than {{cfg.quantity_hits_more_than}} HITs</b> <u>and</u> be in the <b>top
-                        {{cfg.quality_top_percentage}}% quality group</b>.
-                    </li>
-                </ul>
-
-                <p>Bonuses will be assigned with in 7 days.</p>
-                <b>Please perform up to <b class="max_allowed_hits"> 0 </b> HITs from this group. If you do more than
-                    that, the <u>rest will be rejected.</u></b>
             </div>
         </div>
 
