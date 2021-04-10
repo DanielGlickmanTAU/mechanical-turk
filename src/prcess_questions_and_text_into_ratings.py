@@ -1,9 +1,9 @@
-file = 'question_algo4_most_confident'
+file = 'questions-algo1-not-sure'
 
 questions = []
 texts = []
 
-lines = open(file,encoding='utf-8').readlines()
+lines = open(file, encoding='utf-8').readlines()
 for line in lines:
     if line.startswith('question: '):
         line = line.replace('question: ', '')
@@ -20,9 +20,9 @@ def process_question(q):
     return f'<h4><b>{q}?</b></h4>'
 
 
-
 def process_text(t):
     return t.replace("'", "`").replace(',', ';;').replace('\n', '')
+
 
 print('\n\n')
 print('\n'.join([process_question(q) + process_text(t) for q, t in zip(questions, texts)]))
