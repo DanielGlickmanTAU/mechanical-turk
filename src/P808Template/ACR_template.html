@@ -1031,6 +1031,7 @@
         } else {
             urls = config['questionUrls'];
         }
+        urls = urls.map(x=>x.replace(';;',','))
 
         var i;
         for (i = 0; i < urls.length; i++) {
