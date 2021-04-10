@@ -185,9 +185,9 @@
             // given cookie availability disable the training
             if (readCookie(config['cookieName'] + "_training")) {
                 $('.trainingFieldset').prop("disabled", true);
-                $("#training").hide();
+                $("#training").collapse();
                 $("#training :input").removeAttr("required");
-                $('#instruction').collapse()
+                // $('#instruction').collapse()
                 cookie_debug_status = cookie_debug_status + "Train Exist*";
             }
             // given cookie availability disable the setup
