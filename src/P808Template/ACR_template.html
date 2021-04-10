@@ -83,6 +83,8 @@
         background: #fbfbfb;
         border-radius: 5px;
         margin-bottom: 5px;
+        float:left;
+        width: 50%;
     }
 </style>
 
@@ -1023,8 +1025,10 @@
     function generate_rating_section() {
         // var text_and_question = {1}
 
-        acr_nav_tab = '<li class="nav-item {1}"><a class="nav-link" data-toggle="tab" href="#Q{0}-panel" id="Q{0}-tab" role="tab" aria-controls="Q{0}" >Q. {0}</a></li>';
-        acr_tab = '<div class="tab-pane fade {2}" id="Q{0}-panel" role="tabpanel" aria-labelledby="q{0}-tab"> <p></p> <div class="row"> <div class="col-sm-3"></div> <div class="col-sm-6"> <p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following question? </p> <p align="center"> <span id="q{0}"  >{1}</span> </p> <fieldset id="fieldset_q{0}" title=""> <table class="table md scale" cellspacing="0" cellpadding="0"> <thead> <tr><th >Quality of the question</th><th class="c" >Score</th></tr> </thead> <tbody> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="5">Excellent</label></div></td><td class="c">5</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="4">Good</label></div></td><td class="c">4</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="3">Fair</label></div></td><td class="c">3</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="2">Poor</label></div></td><td class="c">2</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr> </tbody> </table> </fieldset> <p></p> </div> <div class="col-sm-3"></div> </div> <p></p> </div>';
+        acr_tab = '<div class="tab-pane fade {2}" id="Q{0}-panel" role="tabpanel" aria-labelledby="q{0}-tab"> <p></p> <div class="row"> <div class="col-sm-3"></div> <div class="col-sm-6"> <p style="margin-top:10px;">{0}. How do you rate the <b>overall quality</b> of the following question? </p> <p align="center"> <span id="q{0}"  >{1}</span> </p> ' +
+            '<fieldset id="fieldset_q{0}" title=""> <table class="table md scale" cellspacing="0" cellpadding="0"> <thead> <tr><th >Quality</th><th class="c" >Score</th></tr> </thead> <tbody> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="5">Excellent</label></div></td><td class="c">5</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="4">Good</label></div></td><td class="c">4</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="3">Fair</label></div></td><td class="c">3</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="2">Poor</label></div></td><td class="c">2</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr> </tbody> </table> </fieldset>' +
+            '<fieldset id="fieldset_q{0}" title=""> <table class="table md scale" cellspacing="0" cellpadding="0"> <thead> <tr><th >Diffucltiy</th><th class="c" >Score</th></tr> </thead> <tbody> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="5">Excellent</label></div></td><td class="c">5</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="4">Good</label></div></td><td class="c">4</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="3">Fair</label></div></td><td class="c">3</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="2">Poor</label></div></td><td class="c">2</td></tr> <tr><td><div class="radio" ><label ><input type="radio" name="q{1}" value="1"required="">Bad</label></div></td><td class="c">1</td></tr> </tbody> </table> </fieldset>' +
+            ' <p></p> </div> <div class="col-sm-3"></div> </div> <p></p> </div>';
         // // this will show which url was shown by in which question as their orther will be randomized
         input_template = '<input id="Q{0}_URL" name="Q{0}_URL" type="hidden" value="{1}" />';
 
