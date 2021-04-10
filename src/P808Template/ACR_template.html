@@ -1004,7 +1004,7 @@
             urls = config['trainingUrls'];
 
         urls = urls.map(x => x.split(';;').join(','))
-        urls = urls.filter(x=> x ==='ignored_me')
+        urls = urls.filter(x=> x !=='ignored_me')
 
         var i;
         for (i = 0; i < urls.length; i++) {
