@@ -998,10 +998,10 @@
         // this will show which url was shown by in which question as their orther will be randomized
         input_template = '<input id="T{0}" name="T{0}" type="hidden" value="{1}" />';
 
-        if (JSON.parse(config['randomizeTrainingQuestions']))
-            urls = shuffle(config['trainingUrls']);
-        else
-            urls = config['trainingUrls'];
+        // if (JSON.parse(config['randomizeTrainingQuestions']))
+        //     urls = shuffle(config['trainingUrls']);
+        // else
+        urls = config['trainingUrls'];
 
         urls = urls.map(x => x.split(';;').join(','))
         urls = urls.filter(x=> x !=='ignored_me')
