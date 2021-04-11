@@ -1,8 +1,6 @@
 import pandas as pd
 import numpy
 
-file = 'result_batches/Batch_4403340_batch_results_algo2.csv'
-
 
 def get_column_names(df):
     head = df.head(0)
@@ -32,6 +30,10 @@ def diff_filter(name):
 def df_to_worker_id_ratings_dict(df):
     keys, worker_id_to_list_of_scores = _process_single_df(df)
 
+    # is keys also 10 in  previous batch for algo1?
+    # in algo one it is 35 answer 10/20 questions(most answer 10 some all 20)
+    # in algo 3, batch a it is 10 keys and 22 people(22 peopple answer 10 questions)
+    # algo 3 combined is 35 people who all answered 10 questions(I had some question that crashed mechanical turk)
     return {worker_id: get_scores(worker_id, keys, worker_id_to_list_of_scores) for worker_id in
             worker_id_to_list_of_scores}
 
@@ -54,8 +56,10 @@ def _process_single_df(df):
         for key, value in scores_dict.items():
             current_value = current_scores_dict[key]
             if value > 0:
-                assert not current_value > 0
-                current_scores_dict[key] = value
+                if not current_value > 0:
+                    print('alert. foudn duplicate in ', key, 'for worker', worker_id, 'current value is', current_value,
+                          'and now finding', value)
+                current_scores_dict[key] = max(value, current_value)
             else:
                 assert current_value > 0
 
@@ -100,6 +104,15 @@ def process_file(df):
     return measure_df
 
 
+file = 'result_batches/Batch_4403346_batch_results_algo4.csv'
+file1 = 'result_batches/Batch_4403573_batch_results_algo4_b.csv'
+file2 = 'result_batches/Batch_4403612_batch_results_algo4_c.csv'
+# file = 'result_batches/Batch_4403333_batch_results_algo_1.csv'
+
 df = pd.read_csv(file, index_col=0)
+df1 = pd.read_csv(file1, index_col=0)
+df2 = pd.read_csv(file2, index_col=0)
+
+df_full = df.append(df1).append(df2)
 print('file', file)
-last_measure_df = process_file(df)
+last_measure_df = process_file(df_full)
