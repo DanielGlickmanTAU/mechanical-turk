@@ -30,10 +30,23 @@ def diff_filter(name):
 
 
 def df_to_worker_id_ratings_dict(df):
-    d_list = df.to_dict(orient='records')
-    worker_id_to_list_of_scores = {}
+    keys, worker_id_to_list_of_scores = _process_single_df(df)
 
-    def add_to_dict(worker_id, scores_dict):
+    return {worker_id: get_scores(worker_id, keys, worker_id_to_list_of_scores) for worker_id in
+            worker_id_to_list_of_scores}
+
+
+def get_scores(worker_id, keys, id_to_list_of_scores):
+    scores_dict = id_to_list_of_scores[worker_id]
+    return [scores_dict[k] for k in keys]
+
+
+def _process_single_df(df):
+    d_list = df.to_dict(orient='records')
+    worker_id_to_list_of_scores = {}  # dict from worker id to questions_score
+
+    def add_to_dict(worker_id, scores_dict,
+                    worker_id_to_list_of_scores=worker_id_to_list_of_scores):  # scores_dict is dict[question]=score
         if worker_id not in worker_id_to_list_of_scores:
             worker_id_to_list_of_scores[worker_id] = scores_dict
             return
@@ -46,16 +59,11 @@ def df_to_worker_id_ratings_dict(df):
             else:
                 assert current_value > 0
 
-    def get_scores(worker_id, keys):
-        scores_dict = worker_id_to_list_of_scores[worker_id]
-        return [scores_dict[k] for k in keys]
-
     for d in d_list:
         worker_id = d.pop('WorkerId')
         add_to_dict(worker_id, d)
-
     keys = list(d.keys())
-    return {worker_id: get_scores(worker_id, keys) for worker_id in worker_id_to_list_of_scores}
+    return keys, worker_id_to_list_of_scores
 
 
 def print_dict_as_matlab(d):
@@ -75,9 +83,7 @@ def print_mean_and_std(d):
 measures = {'difficulty': diff_filter, 'relevancy': qual_filter}
 
 
-def process_file(file):
-    df = pd.read_csv(file, index_col=0)
-    print('file', file)
+def process_file(df):
     print(df)
     print('\n\n')
     means = {}
@@ -94,4 +100,6 @@ def process_file(file):
     return measure_df
 
 
-last_measure_df = process_file(file)
+df = pd.read_csv(file, index_col=0)
+print('file', file)
+last_measure_df = process_file(df)
