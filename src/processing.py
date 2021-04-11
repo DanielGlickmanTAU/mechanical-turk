@@ -56,10 +56,10 @@ def _process_single_df(df):
         for key, value in scores_dict.items():
             current_value = current_scores_dict[key]
             if value > 0:
-                if not current_value > 0:
+                if (current_value > 0):
                     print('alert. foudn duplicate in ', key, 'for worker', worker_id, 'current value is', current_value,
                           'and now finding', value)
-                current_scores_dict[key] = max(value, current_value)
+                current_scores_dict[key] = value
             else:
                 assert current_value > 0
 

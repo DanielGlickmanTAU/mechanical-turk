@@ -11,6 +11,8 @@ Algorithm 3 - least confident generated
 Diff: mu = 3.14, CI = 0.33
 Rel: mu = 4.03, CI = 0.24
 
-
+Algorithm 4 - most confident
+Diff: mu = 3.29, CI = 0.28
+Rel: mu = 3.46, CI = 0.36
 
 
