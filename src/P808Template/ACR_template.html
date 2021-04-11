@@ -566,7 +566,7 @@
 
         let st = value + ";" + expires;
         console.log(st);
-        localStorage.setItem(name, st);
+        // localStorage.setItem(name, st);
     }
 
     function createCookieOld(name, value, minutes) {
@@ -605,20 +605,21 @@
         Return the value of cookie, or null
     */
     function readCookie(name) {
-        var storedValue = localStorage.getItem(name);
-        if (storedValue) {
-            let infos = storedValue.toString().split(';');
-            let value = infos[0];
-            let validUntil = new Date(infos[1]);
-            let today = new Date();
-            if (today <= validUntil)
-                return value;
-            else {
-                localStorage.removeItem(name);
-                return null;
-            }
-        } else
-            return null;
+        return null
+        // var storedValue = localStorage.getItem(name);
+        // if (storedValue) {
+        //     let infos = storedValue.toString().split(';');
+        //     let value = infos[0];
+        //     let validUntil = new Date(infos[1]);
+        //     let today = new Date();
+        //     if (today <= validUntil)
+        //         return value;
+        //     else {
+        //         localStorage.removeItem(name);
+        //         return null;
+        //     }
+        // } else
+        //     return null;
     }
 
     function readCookieOld(name) {
@@ -641,7 +642,7 @@
         Remove the variable from local storage
     */
     function removeCookie(name) {
-        localStorage.removeItem(name);
+        // localStorage.removeItem(name);
     }
 
     /*
